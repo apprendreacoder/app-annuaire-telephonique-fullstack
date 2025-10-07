@@ -36,3 +36,7 @@ build/
 
 ### Mac OS ###
 .DS_Store
+
+### Libs JS ###
+frontend/node_modules/
+frontend/dist/
