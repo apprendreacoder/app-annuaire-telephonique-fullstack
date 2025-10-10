@@ -25,26 +25,18 @@ public class Contact {
     }
 
     //Constructeur avec champs
-
-    public Contact(String prenom, String telephone, String email, String poste, String direction, String bureau, Utilisateur utilisateur) {
+    public Contact(String prenom, String telephone, String email, String poste, String direction, String bureau) {
         this.prenom = prenom;
         this.telephone = telephone;
         this.email = email;
         this.poste = poste;
         this.direction = direction;
         this.bureau = bureau;
-        this.utilisateur = utilisateur;
     }
 
-    //Getters and Setters
-
-
+    // Getters / Setters
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getPrenom() {
