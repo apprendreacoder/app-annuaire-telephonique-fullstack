@@ -40,3 +40,11 @@ build/
 ### Libs JS ###
 frontend/node_modules/
 frontend/dist/
+
+# fichiers de crash JVM
+hs_err_pid*.log
+replay_pid*.log
+
+# Spring profiles locaux
+src/main/resources/application-*.properties
+!src/main/resources/application-mysql.properties.example
