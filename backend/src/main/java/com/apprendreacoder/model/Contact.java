@@ -7,9 +7,19 @@ public class Contact {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(nullable = false)
+    private String nom;
+
+    @Column(nullable = false)
     private String prenom;
+
+    @Column(nullable = false)
     private String telephone;
+
+    @Column(nullable = false)
     private String email;
+
     private String poste;       // Intitulé du poste
     private String direction;   // Direction ou service
     private String bureau;      // Emplacement physique (ex: B18)
@@ -25,7 +35,8 @@ public class Contact {
     }
 
     //Constructeur avec champs
-    public Contact(String prenom, String telephone, String email, String poste, String direction, String bureau) {
+    public Contact(String nom,String prenom, String telephone, String email, String poste, String direction, String bureau) {
+        this.nom = nom;
         this.prenom = prenom;
         this.telephone = telephone;
         this.email = email;
@@ -37,6 +48,9 @@ public class Contact {
     // Getters / Setters
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
     }
 
     public String getPrenom() {
@@ -94,4 +108,14 @@ public class Contact {
     public void setUtilisateur(Utilisateur utilisateur) {
         this.utilisateur = utilisateur;
     }
+
+    public String getNom() {
+        return nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+
 }

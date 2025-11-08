@@ -3,7 +3,13 @@ import react from '@vitejs/plugin-react'
 
 export default defineConfig({
   plugins: [react()],
-  resolve: {
-    extensions: ['.js', '.jsx']
+  resolve: { extensions: ['.js', '.jsx'] },
+  server: {
+    proxy: {
+      '/api': {
+        target: 'http://localhost:8080', // ton Spring Boot
+        changeOrigin: true
+      }
+    }
   }
 })
