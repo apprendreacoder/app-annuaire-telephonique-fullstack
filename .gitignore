@@ -46,5 +46,5 @@ hs_err_pid*.log
 replay_pid*.log
 
 # Spring profiles locaux
-src/main/resources/application-*.properties
-!src/main/resources/application-mysql.properties.example
+**/src/main/resources/application-*.properties
+!**/src/main/resources/application-mysql.properties.example
