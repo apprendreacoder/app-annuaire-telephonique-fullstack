@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { getContacts, createContact, deleteContact, updateContact, searchContacts } from './api/contactsApi'
 import ContactForm from './components/ContactForm'
 import ContactRow from './components/ContactRow'
+import { exportCsv } from './utils/exportCsv'
 
 export default function App() {
   const [contacts, setContacts] = useState([])
@@ -9,12 +10,13 @@ export default function App() {
   const [error, setError] = useState('')
   const [query, setQuery] = useState('')
   const [showForm, setShowForm] = useState(false)
+  const [sorted, setSorted] = useState(false)
 
   async function load() {
     try {
       setLoading(true)
       setError('')
-      const data = query ? await searchContacts(query) : await getContacts()
+      const data = query ? await searchContacts(query) : await getContacts(sorted ? 'asc' : undefined)
       setContacts(data)
     } catch {
       setError('Impossible de charger les contacts. Vérifiez que le backend est démarré.')
@@ -23,7 +25,7 @@ export default function App() {
     }
   }
 
-  useEffect(() => { load() }, [query])
+  useEffect(() => { load() }, [query, sorted])
 
   async function handleCreate(dto) {
     if (!dto.utilisateurId) dto.utilisateurId = 1
@@ -67,6 +69,28 @@ export default function App() {
             onChange={(e) => setQuery(e.target.value)}
           />
         </div>
+        <button
+          className={`btn btn-sm ${sorted ? 'btn-primary' : 'btn-ghost'}`}
+          onClick={() => setSorted(s => !s)}
+          title="Trier A → Z"
+        >
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <line x1="3" y1="6" x2="15" y2="6"/><line x1="3" y1="12" x2="10" y2="12"/><line x1="3" y1="18" x2="7" y2="18"/>
+            <polyline points="17 4 21 8 17 12"/><line x1="21" y1="8" x2="13" y2="8"/>
+          </svg>
+          A → Z
+        </button>
+        <button
+          className="btn btn-ghost btn-sm"
+          onClick={() => exportCsv(contacts, 'annuaire.csv')}
+          disabled={contacts.length === 0}
+          title="Télécharger la liste au format CSV"
+        >
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+          Exporter CSV
+        </button>
         <span className="count-badge">{contacts.length} contact{contacts.length !== 1 ? 's' : ''}</span>
       </div>
 

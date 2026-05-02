@@ -29,7 +29,7 @@ export default function ContactRow({ contact, onDelete, onUpdate }) {
     setEdit(false)
   }
 
-  const tags = [contact.intitulePoste, contact.direction, contact.bureau].filter(Boolean)
+  const tags = [contact.poste, contact.direction, contact.bureau].filter(Boolean)
 
   return (
     <div className="card contact-card">
